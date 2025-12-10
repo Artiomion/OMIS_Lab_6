@@ -1,7 +1,6 @@
 """
 Сервис уведомлений
-Соответствует СервисУведомлений из диаграммы классов инфраструктуры
-и NotificationController из sequence диаграммы
+Соответствует СервисУведомлений из диаграммы классов инфраструктуры и NotificationController из sequence диаграммы
 """
 from database import db
 from models.notification import Notification
@@ -9,9 +8,7 @@ from models.notification import Notification
 
 class NotificationService:
     """
-    Сервис для отправки уведомлений пользователям
-    Реализует функциональность из sequence диаграммы:
-    - notifyApplicant(invitation)
+    Реализует функциональность из sequence диаграммы - notifyApplicant(invitation)
     """
 
     @staticmethod
