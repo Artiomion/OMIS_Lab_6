@@ -23,6 +23,7 @@ class User(UserMixin, db.Model):
     - роль : String
     Методы:
     - войти()
+    - выйти()(Реализован в auth_controller.py)
     """
     __tablename__ = 'users'
 
