@@ -1,12 +1,14 @@
 """
 Модель резюме
 Соответствует диаграмме классов модели:
-- Резюме
+Резюме
   - id : int
   - заголовок : String
   - опыт : String
   - навыки : List<String>
   - образование : String
+Методы:
+- экспортировать(формат : String)
 """
 from database import db
 from datetime import datetime
