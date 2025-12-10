@@ -226,6 +226,7 @@ if __name__ == '__main__':
     app = create_app()
 
     print("=" * 60)
+    print("Запущено на http://127.0.0.1:5000")
     print("Тестовые аккаунты:")
     print("Соискатель: applicant@example.com / 12345")
     print("Работодатель: employer@example.com / 12345")
