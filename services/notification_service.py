@@ -8,7 +8,11 @@ from models.notification import Notification
 
 class NotificationService:
     """
-    Реализует функциональность из sequence диаграммы - notifyApplicant(invitation)
+    Методы:
+    - Уведомить работодателя о новом отклике. Реализует функциональность из sequence диаграммы
+    - Уведомить соискателя об изменении статуса отклика
+    - Реализует notifyApplicant(invitation)(Уведомить соискателя о приглашении) из sequence диаграммы
+    - Уведомить пользователя о блокировке
     """
 
     @staticmethod
