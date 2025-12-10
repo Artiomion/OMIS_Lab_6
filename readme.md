@@ -3,30 +3,30 @@
 ## Соответствие UML-диаграммам
 
 ### Диаграмма классов модели
-- `User` - базовый класс пользователя [models/user.py](`models/user.py`)
+- `User` - базовый класс пользователя [models/user.py](models/user.py)
 - `Applicant` - соискатель (наследует User)
 - `Employer` - работодатель (наследует User)
 - `Administrator` - администратор (наследует User)
-- `Resume` - резюме [models/resume.p](`models/resume.py`)
-- `Vacancy` - вакансия [models/vacancy.py](`models/vacancy.py`)
-- `Application` - отклик [models/application.py](`models/application.py`)
+- `Resume` - резюме [models/resume.p](models/resume.py)
+- `Vacancy` - вакансия [models/vacancy.py](models/vacancy.py)
+- `Application` - отклик [models/application.py](models/application.py)
 
 ### Диаграмма классов контроллеров
-- `КонтроллерАутентификации` → `auth_controller.py`
-- `КонтроллерРезюме` → `resume_controller.py`
-- `КонтроллерВакансий` → `vacancy_controller.py`
-- `КонтроллерАдминистрирования` → `admin_controller.py`
-- `КонтроллерКоммуникаций` → `notification_service.py`
+- `КонтроллерАутентификации` → [auth_controller.py](controllers/auth_controller.py)
+- `КонтроллерРезюме` → [resume_controller.py](controllers/resume_controller.py)
+- `КонтроллерВакансий` → [vacancy_controller.py](controllers/vacancy_controller.py)
+- `КонтроллерАдминистрирования` → [admin_controller.py](controllers/admin_controller.py)
+- `КонтроллерКоммуникаций` → [notification_service.py](controllers/notification_service.py)
 
 ### Диаграмма классов инфраструктуры
 - `БазаДанных` → `database.py`
 - `РепозиторийПользователей` - реализован через SQLAlchemy ORM
 - `РепозиторийРезюме` - реализован через SQLAlchemy ORM
-- `РепозиторийВакансий` - реализован через SQLAlchemy ORM
-- `СервисУведомлений` → `services/notification_service.py`
+- `РепозиторийВакансий` - реализован через SQLAlchemy ORM     #L12
+- `СервисУведомлений` → [services/notification_service.py](services/notification_service.py)
 
 ### Диаграмма классов точки входа
-- `Приложение` → `app.py` (main(), create_app())
+- `Приложение` → [app.py](app.py) ([main()](app.py#L222), create_app())
 - `КонтейнерЗависимостей` - реализован через blueprints Flask
 
 ### Sequence диаграмма
