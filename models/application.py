@@ -1,12 +1,14 @@
 """
 Модель отклика
 Соответствует диаграмме классов модели:
-- Отклик
+Отклик
   - id : int
   - статус : String
   - дата : Date
   - соискатель : Соискатель
   - вакансия : Вакансия
+Методы:
+- обновитьСтатус(новыйСтатус : String)
 """
 from database import db
 from datetime import datetime
@@ -32,7 +34,7 @@ class Application(db.Model):
 
     def update_status(self, new_status):
         """
-        Метод обновитьСтатус(новыйСтатус : String) из диаграммы
+        Метод обновитьСтатус(новыйСтатус : String) из диаграммы классов
         """
         valid_statuses = ['pending', 'accepted', 'rejected', 'invited']
         if new_status in valid_statuses:
