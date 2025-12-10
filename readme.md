@@ -11,6 +11,7 @@
 - `Vacancy` - вакансия [models/vacancy.py](models/vacancy.py)
 - `Application` - отклик [models/application.py](models/application.py)
 
+
 ### Диаграмма классов контроллеров
 - `КонтроллерАутентификации` → [auth_controller.py](controllers/auth_controller.py)
 - `КонтроллерРезюме` → [resume_controller.py](controllers/resume_controller.py)
@@ -19,7 +20,7 @@
 - `КонтроллерКоммуникаций` → [notification_service.py](controllers/notification_service.py)
 
 ### Диаграмма классов инфраструктуры
-- `БазаДанных` → `database.py`
+- `БазаДанных` → [database.py](database.py)
 - `РепозиторийПользователей` - реализован через SQLAlchemy ORM
 - `РепозиторийРезюме` - реализован через SQLAlchemy ORM
 - `РепозиторийВакансий` - реализован через SQLAlchemy ORM
@@ -31,8 +32,8 @@
 
 ### Sequence диаграмма
 Реализована функциональность:
-- Поиск резюме работодателем (`resume_controller.py::search()`)
-- Просмотр резюме [resume_controller.py::view()](`controllers/resume_controller.py::view()`)
+- Поиск резюме работодателем [resume_controller.py::search()](`controllers/resume_controller.py#L181`)
+- Просмотр резюме [resume_controller.py::view()](`controllers/resume_controller.py#L166`)
 - Отправка приглашений/откликов
 - Уведомления [notification_service.py](services/notification_service.py)
 - Обновление статусов откликов
@@ -66,7 +67,7 @@
 SQLAlchemy ORM выступает в роли репозиториев, предоставляя единый интерфейс для работы с данными.
 
 ### 4. Service слой
-`NotificationService` инкапсулирует логику отправки уведомлений, обеспечивая разделение ответственности.
+[NotificationService](services/notification_service.py#L10) инкапсулирует логику отправки уведомлений, обеспечивая разделение ответственности.
 
 ### Запуск приложения
 ```bash
