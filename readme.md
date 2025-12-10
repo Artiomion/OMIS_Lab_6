@@ -200,3 +200,9 @@ job_platform/
 - Проверка прав доступа на уровне контроллеров
 - Валидация пользовательского ввода
 
+## Интерфейс
+Референс
+<img width="808" height="202" alt="Снимок экрана 2025-12-10 в 06 50 38" src="https://github.com/user-attachments/assets/f1841bfd-813a-4444-b111-0c80453abf67" />
+Мой интерфейс
+<img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 06 52 03" src="https://github.com/user-attachments/assets/74ff32fc-8ae3-4630-8f9d-99eae5619902" />
+
