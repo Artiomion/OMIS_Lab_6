@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Редактировать вакансию{% endblock %}
+
+{% block content %}
+<h2>✏️ Редактирование вакансии</h2>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Название вакансии *</label>
+            <input type="text" id="title" name="title" required 
+                   value="{{ vacancy.title }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Описание вакансии *</label>
+            <textarea id="description" name="description" required>{{ vacancy.description }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="requirements">Требования к кандидату</label>
+            <textarea id="requirements" name="requirements">{{ vacancy.requirements }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="salary">Зарплата</label>
+            <input type="text" id="salary" name="salary" 
+                   value="{{ vacancy.salary or '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="location">Местоположение</label>
+            <input type="text" id="location" name="location" 
+                   value="{{ vacancy.location or '' }}">
+        </div>
+        
+        <button type="submit" class="button">💾 Сохранить изменения</button>
+        <a href="{{ url_for('vacancy.my_vacancies') }}" class="button secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

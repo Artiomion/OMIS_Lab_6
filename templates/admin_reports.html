@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Отчёты системы{% endblock %}
+
+{% block content %}
+<h2>📊 Детальные отчёты системы</h2>
+
+<div class="card">
+    <h3>Общая статистика</h3>
+    <table>
+        <tr>
+            <td><strong>Всего пользователей:</strong></td>
+            <td>{{ basic_reports.total_users }}</td>
+        </tr>
+        <tr>
+            <td><strong>Соискателей:</strong></td>
+            <td>{{ basic_reports.total_applicants }}</td>
+        </tr>
+        <tr>
+            <td><strong>Работодателей:</strong></td>
+            <td>{{ basic_reports.total_employers }}</td>
+        </tr>
+        <tr>
+            <td><strong>Заблокированных пользователей:</strong></td>
+            <td>{{ basic_reports.blocked_users }}</td>
+        </tr>
+        <tr>
+            <td><strong>Всего резюме:</strong></td>
+            <td>{{ basic_reports.total_resumes }}</td>
+        </tr>
+        <tr>
+            <td><strong>Всего вакансий:</strong></td>
+            <td>{{ basic_reports.total_vacancies }}</td>
+        </tr>
+        <tr>
+            <td><strong>Всего откликов:</strong></td>
+            <td>{{ basic_reports.total_applications }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Статистика за последний месяц</h3>
+    <table>
+        <tr>
+            <td><strong>Новых пользователей:</strong></td>
+            <td>{{ detailed_reports.new_users_last_month }}</td>
+        </tr>
+        <tr>
+            <td><strong>Новых резюме:</strong></td>
+            <td>{{ detailed_reports.new_resumes_last_month }}</td>
+        </tr>
+        <tr>
+            <td><strong>Новых вакансий:</strong></td>
+            <td>{{ detailed_reports.new_vacancies_last_month }}</td>
+        </tr>
+        <tr>
+            <td><strong>Новых откликов:</strong></td>
+            <td>{{ detailed_reports.new_applications_last_month }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Статистика вакансий</h3>
+    <table>
+        <tr>
+            <td><strong>Опубликованных вакансий:</strong></td>
+            <td>{{ detailed_reports.published_vacancies }}</td>
+        </tr>
+        <tr>
+            <td><strong>Закрытых вакансий:</strong></td>
+            <td>{{ detailed_reports.closed_vacancies }}</td>
+        </tr>
+        <tr>
+            <td><strong>Откликов на рассмотрении:</strong></td>
+            <td>{{ detailed_reports.pending_applications }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

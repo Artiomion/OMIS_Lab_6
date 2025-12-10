@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Панель работодателя{% endblock %}
+
+{% block content %}
+<h2>👔 Панель работодателя - {{ current_user.company_name or current_user.name }}</h2>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>{{ vacancies_count }}</h3>
+        <p>Всего вакансий</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ published_count }}</h3>
+        <p>Опубликовано</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ applications_count }}</h3>
+        <p>Всего откликов</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ pending_count }}</h3>
+        <p>На рассмотрении</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>💼 Мои вакансии</h3>
+    {% if my_vacancies %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Статус</th>
+                    <th>Откликов</th>
+                    <th>Дата создания</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vacancy in my_vacancies %}
+                <tr>
+                    <td><a href="{{ url_for('vacancy.view', vacancy_id=vacancy.id) }}">{{ vacancy.title }}</a></td>
+                    <td><span class="badge {{ vacancy.status }}">{{ vacancy.status }}</span></td>
+                    <td>{{ vacancy.applications.count() }}</td>
+                    <td>{{ vacancy.created_at.strftime('%d.%m.%Y') }}</td>
+                    <td>
+                        <a href="{{ url_for('vacancy.applications', vacancy_id=vacancy.id) }}" class="button" style="padding: 0.3rem 0.6rem; font-size: 0.85rem;">Отклики</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('vacancy.my_vacancies') }}" class="button secondary" style="margin-top: 1rem;">Посмотреть все</a>
+    {% else %}
+        <div class="empty-state">
+            <p>У вас пока нет вакансий</p>
+            <p><a href="{{ url_for('vacancy.create') }}" class="button" style="margin-top: 1rem;">Создать вакансию</a></p>
+        </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>📨 Последние отклики</h3>
+    {% if recent_applications %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Соискатель</th>
+                    <th>Вакансия</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in recent_applications %}
+                <tr>
+                    <td>{{ app.applicant.name }}</td>
+                    <td><a href="{{ url_for('vacancy.view', vacancy_id=app.vacancy.id) }}">{{ app.vacancy.title }}</a></td>
+                    <td><span class="badge {{ app.status }}">{{ app.status }}</span></td>
+                    <td>{{ app.created_at.strftime('%d.%m.%Y') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty-state">
+            <p>Пока нет откликов на ваши вакансии</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

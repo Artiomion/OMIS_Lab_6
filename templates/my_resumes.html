@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Мои резюме{% endblock %}
+
+{% block content %}
+<h2>📄 Мои резюме</h2>
+
+<a href="{{ url_for('resume.create') }}" class="button" style="margin-bottom: 2rem;">➕ Создать новое резюме</a>
+
+{% if resumes %}
+    {% for resume in resumes %}
+    <div class="card">
+        <h3>{{ resume.title }}</h3>
+        <p><strong>Образование:</strong> {{ resume.education or 'Не указано' }}</p>
+        <p><strong>Навыки:</strong> {{ resume.skills or 'Не указаны' }}</p>
+        <p><strong>Опыт:</strong> {{ resume.experience[:150] if resume.experience else 'Не указан' }}...</p>
+        <p style="color: #6c757d; font-size: 0.9rem;">Создано: {{ resume.created_at.strftime('%d.%m.%Y') }}</p>
+        
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('resume.edit', resume_id=resume.id) }}" class="button">Редактировать</a>
+            <a href="{{ url_for('resume.view', resume_id=resume.id) }}" class="button secondary">Просмотр</a>
+            <a href="{{ url_for('resume.export', resume_id=resume.id, format='txt') }}" class="button secondary">Экспорт TXT</a>
+            <form method="POST" action="{{ url_for('resume.delete', resume_id=resume.id) }}" style="display: inline;" 
+                  onsubmit="return confirm('Вы уверены, что хотите удалить это резюме?');">
+                <button type="submit" class="button danger">Удалить</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">
+        <p style="font-size: 1.2rem;">У вас пока нет резюме</p>
+        <p>Создайте свое первое резюме, чтобы начать поиск работы!</p>
+        <a href="{{ url_for('resume.create') }}" class="button" style="margin-top: 1rem;">Создать резюме</a>
+    </div>
+{% endif %}
+{% endblock %}

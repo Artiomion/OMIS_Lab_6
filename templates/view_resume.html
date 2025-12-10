@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ resume.title }}{% endblock %}
+
+{% block content %}
+<a href="javascript:history.back()" class="button secondary" style="margin-bottom: 1rem;">← Назад</a>
+
+<div class="card">
+    <h2>{{ resume.title }}</h2>
+    <p style="color: #6c757d;">Автор: <strong>{{ resume.applicant.name }}</strong></p>
+    
+    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e0e0e0;">
+    
+    <h3>🎓 Образование</h3>
+    <p style="white-space: pre-line;">{{ resume.education or 'Не указано' }}</p>
+    
+    <h3 style="margin-top: 1.5rem;">💼 Опыт работы</h3>
+    <p style="white-space: pre-line;">{{ resume.experience or 'Не указан' }}</p>
+    
+    <h3 style="margin-top: 1.5rem;">🛠️ Навыки</h3>
+    {% if resume.get_skills_list() %}
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            {% for skill in resume.get_skills_list() %}
+                <span class="badge" style="background: #e7f3ff; color: #0056b3;">{{ skill }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Не указаны</p>
+    {% endif %}
+    
+    {% if resume.additional_info %}
+    <h3 style="margin-top: 1.5rem;">ℹ️ Дополнительная информация</h3>
+    <p style="white-space: pre-line;">{{ resume.additional_info }}</p>
+    {% endif %}
+    
+    <p style="color: #6c757d; font-size: 0.9rem; margin-top: 2rem;">
+        Создано: {{ resume.created_at.strftime('%d.%m.%Y') }}
+        {% if resume.updated_at != resume.created_at %}
+        | Обновлено: {{ resume.updated_at.strftime('%d.%m.%Y') }}
+        {% endif %}
+    </p>
+    
+    <div style="margin-top: 2rem;">
+        {% if current_user.role == 'applicant' and resume.applicant_id == current_user.id %}
+            <a href="{{ url_for('resume.edit', resume_id=resume.id) }}" class="button">Редактировать</a>
+        {% endif %}
+        <a href="{{ url_for('resume.export', resume_id=resume.id, format='txt') }}" class="button secondary">Экспорт TXT</a>
+        <a href="{{ url_for('resume.export', resume_id=resume.id, format='html') }}" class="button secondary">Экспорт HTML</a>
+    </div>
+</div>
+{% endblock %}

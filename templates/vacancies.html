@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Вакансии{% endblock %}
+
+{% block content %}
+<h2>💼 Вакансии</h2>
+
+<div class="search-box">
+    <form method="GET">
+        <input type="text" name="q" value="{{ query }}" 
+               placeholder="Поиск вакансий по названию, описанию или требованиям..." autofocus>
+    </form>
+</div>
+
+{% if vacancies %}
+    <p style="margin-bottom: 1rem; color: #6c757d;">Найдено вакансий: {{ vacancies|length }}</p>
+    
+    {% for vacancy in vacancies %}
+    <div class="card">
+        <h3>{{ vacancy.title }}</h3>
+        <p style="color: #6c757d;">
+            <strong>{{ vacancy.employer.company_name or vacancy.employer.name }}</strong>
+            {% if vacancy.location %} | 📍 {{ vacancy.location }}{% endif %}
+        </p>
+        
+        {% if vacancy.salary %}
+        <p><strong>Зарплата:</strong> {{ vacancy.salary }} $</p>
+        {% endif %}
+        
+        <p>{{ vacancy.description[:250] }}{% if vacancy.description|length > 250 %}...{% endif %}</p>
+        
+        <p style="color: #6c757d; font-size: 0.9rem; margin-top: 0.5rem;">
+            Опубликовано: {{ vacancy.created_at.strftime('%d.%m.%Y') }}
+        </p>
+        
+        <a href="{{ url_for('vacancy.view', vacancy_id=vacancy.id) }}" class="button">Подробнее</a>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">
+        <p style="font-size: 1.2rem;">Вакансий не найдено</p>
+        {% if query %}
+            <p>Попробуйте изменить параметры поиска</p>
+        {% else %}
+            <p>Пока нет доступных вакансий</p>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

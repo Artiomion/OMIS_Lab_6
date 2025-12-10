@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Соискатель{% endblock %}
+
+{% block content %}
+<h2>👋 Добро пожаловать, {{ current_user.name }}!</h2>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>{{ resumes_count }}</h3>
+        <p>Мои резюме</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ applications_count }}</h3>
+        <p>Мои отклики</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ recent_vacancies|length }}</h3>
+        <p>Новые вакансии</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>📊 Мои последние отклики</h3>
+    {% if my_applications %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Вакансия</th>
+                    <th>Компания</th>
+                    <th>Статус</th>
+                    <th>Дата отклика</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in my_applications %}
+                <tr>
+                    <td><a href="{{ url_for('vacancy.view', vacancy_id=app.vacancy.id) }}">{{ app.vacancy.title }}</a></td>
+                    <td>{{ app.vacancy.employer.company_name or app.vacancy.employer.name }}</td>
+                    <td><span class="badge {{ app.status }}">{{ app.status }}</span></td>
+                    <td>{{ app.created_at.strftime('%d.%m.%Y') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty-state">
+            <p>У вас пока нет откликов на вакансии</p>
+            <p><a href="{{ url_for('vacancy.list_vacancies') }}" class="button" style="margin-top: 1rem;">Посмотреть вакансии</a></p>
+        </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>💼 Новые вакансии</h3>
+    {% if recent_vacancies %}
+        {% for vacancy in recent_vacancies %}
+        <div class="card">
+            <h4>{{ vacancy.title }}</h4>
+            <p style="color: #6c757d;">{{ vacancy.employer.company_name or vacancy.employer.name }}</p>
+            {% if vacancy.salary %}<p><strong>Зарплата:</strong> {{ vacancy.salary }} $</p>{% endif %}
+            <p>{{ vacancy.description[:200] }}{% if vacancy.description|length > 200 %}...{% endif %}</p>
+            <a href="{{ url_for('vacancy.view', vacancy_id=vacancy.id) }}" class="button">Подробнее</a>
+        </div>
+        {% endfor %}
+        <a href="{{ url_for('vacancy.list_vacancies') }}" class="button secondary">Посмотреть все вакансии</a>
+    {% else %}
+        <div class="empty-state">
+            <p>Пока нет доступных вакансий</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

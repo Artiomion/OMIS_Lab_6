@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}{{ vacancy.title }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('vacancy.list_vacancies') }}" class="button secondary" style="margin-bottom: 1rem;">← Назад к вакансиям</a>
+
+<div class="card">
+    <h2>{{ vacancy.title }}</h2>
+    <p style="color: #6c757d; font-size: 1.1rem;">
+        <strong>{{ vacancy.employer.company_name or vacancy.employer.name }}</strong>
+    </p>
+    
+    {% if vacancy.location %}
+    <p>📍 <strong>Местоположение:</strong> {{ vacancy.location }}</p>
+    {% endif %}
+    
+    {% if vacancy.salary %}
+    <p>💰 <strong>Зарплата:</strong> {{ vacancy.salary }} $</p>
+    {% endif %}
+    
+    <p><span class="badge {{ vacancy.status }}">{{ vacancy.status }}</span></p>
+    
+    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e0e0e0;">
+    
+    <h3>Описание вакансии</h3>
+    <p style="white-space: pre-line;">{{ vacancy.description }}</p>
+    
+    {% if vacancy.requirements %}
+    <h3 style="margin-top: 1.5rem;">Требования</h3>
+    <p style="white-space: pre-line;">{{ vacancy.requirements }}</p>
+    {% endif %}
+    
+    <p style="color: #6c757d; font-size: 0.9rem; margin-top: 2rem;">
+        Опубликовано: {{ vacancy.created_at.strftime('%d.%m.%Y %H:%M') }}
+    </p>
+    
+    {% if current_user.role == 'applicant' %}
+        {% if vacancy.status == 'published' %}
+            {% if has_applied %}
+                <div style="background: #d1ecf1; color: #0c5460; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    ✅ Вы уже откликнулись на эту вакансию
+                </div>
+            {% else %}
+                <h3 style="margin-top: 2rem;">Откликнуться на вакансию</h3>
+                <form method="POST" action="{{ url_for('vacancy.apply', vacancy_id=vacancy.id) }}">
+                    <div class="form-group">
+                        <label for="cover_letter">Сопроводительное письмо (необязательно)</label>
+                        <textarea id="cover_letter" name="cover_letter" 
+                                  placeholder="Расскажите, почему вы подходите на эту позицию"></textarea>
+                    </div>
+                    <button type="submit" class="button success">📨 Отправить отклик</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <div style="background: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                ⚠️ Эта вакансия закрыта или еще не опубликована
+            </div>
+        {% endif %}
+    {% elif current_user.role == 'employer' and vacancy.employer_id == current_user.id %}
+        <div style="margin-top: 2rem;">
+            <a href="{{ url_for('vacancy.edit', vacancy_id=vacancy.id) }}" class="button">Редактировать</a>
+            <a href="{{ url_for('vacancy.applications', vacancy_id=vacancy.id) }}" class="button secondary">Просмотреть отклики ({{ vacancy.applications.count() }})</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

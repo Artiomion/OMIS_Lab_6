@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Создать вакансию{% endblock %}
+
+{% block content %}
+<h2>➕ Создать новую вакансию</h2>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Название вакансии *</label>
+            <input type="text" id="title" name="title" required 
+                   placeholder="Например: Senior Python Developer">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Описание вакансии *</label>
+            <textarea id="description" name="description" required 
+                      placeholder="Опишите вакансию, обязанности, условия работы"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="requirements">Требования к кандидату</label>
+            <textarea id="requirements" name="requirements" 
+                      placeholder="Опишите требования: опыт работы, навыки, образование"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="salary">Зарплата</label>
+            <input type="text" id="salary" name="salary" 
+                   placeholder="Например: 100000-150000">
+        </div>
+        
+        <div class="form-group">
+            <label for="location">Местоположение</label>
+            <input type="text" id="location" name="location" 
+                   placeholder="Например: Москва, удаленно">
+        </div>
+        
+        <button type="submit" class="button">💾 Сохранить вакансию</button>
+        <a href="{{ url_for('vacancy.my_vacancies') }}" class="button secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

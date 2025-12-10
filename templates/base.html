@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Платформа поиска работы{% endblock %}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00b4d8 0%, #3a47d5 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 100;
+        }
+
+        header h1 { font-size: 1.5rem; }
+
+        header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-badge {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge .count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        nav {
+            background: #2c3e50;
+            color: white;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 1rem 0;
+            overflow-y: auto;
+            padding-top: 80px;
+        }
+
+        header h1 .logo {
+            display: inline-block;
+            margin-right: 120px;
+            font-size: 2.2rem;     /* размер эмодзи */
+            transform: translateY(2px); /* чуть приподнимаем, чтобы ровно по центру */
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            background: #34495e;
+            border-left: 4px solid #00b4d8;
+        }
+
+        main {
+            margin-left: 250px;
+            padding: 2rem;
+            min-height: calc(100vh - 60px);
+        }
+
+        .flash-messages {
+            margin-bottom: 1rem;
+        }
+
+        .flash {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .flash.success { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .flash.error { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .flash.warning { background: #fff3cd; color: #856404; border-left: 4px solid #ffc107; }
+        .flash.info { background: #d1ecf1; color: #0c5460; border-left: 4px solid #17a2b8; }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: #00b4d8;
+        }
+
+        .button, button[type="submit"], input[type="submit"] {
+            padding: 0.6rem 1.2rem;
+            background: #00b4d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .button:hover, button[type="submit"]:hover, input[type="submit"]:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .button.secondary {
+            background: #6c757d;
+        }
+
+        .button.secondary:hover {
+            background: #5a6268;
+        }
+
+        .button.danger {
+            background: #dc3545;
+        }
+
+        .button.danger:hover {
+            background: #c82333;
+        }
+
+        .button.success {
+            background: #28a745;
+        }
+
+        .button.success:hover {
+            background: #218838;
+        }
+
+        form {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00b4d8;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: #00b4d8;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-left: 250px;
+            margin-top: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .badge.pending { background: #fff3cd; color: #856404; }
+        .badge.accepted { background: #d4edda; color: #155724; }
+        .badge.rejected { background: #f8d7da; color: #721c24; }
+        .badge.invited { background: #d1ecf1; color: #0c5460; }
+        .badge.published { background: #d4edda; color: #155724; }
+        .badge.draft { background: #e2e3e5; color: #383d41; }
+        .badge.closed { background: #f8d7da; color: #721c24; }
+
+        .search-box {
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        table th {
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        table td {
+            padding: 1rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                width: 100%;
+                position: relative;
+                top: 0;
+                min-height: auto;
+            }
+
+            main, footer {
+                margin-left: 0;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+    <header>
+        <h1>
+            <span class="logo">Target</span> Платформа для поиска работы
+        </h1>
+        <div class="user-info">
+            <a href="{{ url_for('main.notifications') }}" class="notification-badge" style="color: white; text-decoration: none;">
+                🔔
+                {% if unread_count > 0 %}
+                <span class="count">{{ unread_count }}</span>
+                {% endif %}
+            </a>
+            <span>{{ current_user.name }}</span>
+            <a href="{{ url_for('auth.logout') }}" class="button secondary" style="padding: 0.4rem 0.8rem;">Выйти</a>
+        </div>
+    </header>
+
+    <nav>
+        {% if current_user.role == 'applicant' %}
+            <a href="{{ url_for('main.applicant_home') }}">🏠 Главная</a>
+            <a href="{{ url_for('vacancy.list_vacancies') }}">💼 Вакансии</a>
+            <a href="{{ url_for('resume.my_resumes') }}">📄 Мои резюме</a>
+            <a href="{{ url_for('resume.create') }}">➕ Создать резюме</a>
+            <a href="{{ url_for('main.profile') }}">👤 Профиль</a>
+        {% elif current_user.role == 'employer' %}
+            <a href="{{ url_for('main.employer_dashboard') }}">🏠 Панель управления</a>
+            <a href="{{ url_for('vacancy.my_vacancies') }}">💼 Мои вакансии</a>
+            <a href="{{ url_for('vacancy.create') }}">➕ Создать вакансию</a>
+            <a href="{{ url_for('resume.search') }}">🔍 Поиск резюме</a>
+            <a href="{{ url_for('main.profile') }}">👤 Профиль</a>
+        {% elif current_user.role == 'administrator' %}
+            <a href="{{ url_for('admin.dashboard') }}">🏠 Панель админа</a>
+            <a href="{{ url_for('admin.users') }}">👥 Пользователи</a>
+            <a href="{{ url_for('admin.reports') }}">📊 Отчёты</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% if current_user.is_authenticated %}
+    <footer>
+        <p>Платформа поиска работы © 2025 | Все права защищены</p>
+    </footer>
+    {% endif %}
+</body>
+</html>

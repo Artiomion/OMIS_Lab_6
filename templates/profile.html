@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<h2>👤 Профиль пользователя</h2>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="name">Имя</label>
+            <input type="text" id="name" name="name" required 
+                   value="{{ current_user.name }}">
+        </div>
+        
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" value="{{ current_user.email }}" disabled 
+                   style="background: #f0f0f0; cursor: not-allowed;">
+            <small style="color: #6c757d;">Email нельзя изменить</small>
+        </div>
+        
+        <div class="form-group">
+            <label>Роль</label>
+            <input type="text" value="{{ current_user.role }}" disabled 
+                   style="background: #f0f0f0; cursor: not-allowed;">
+        </div>
+        
+        {% if current_user.role == 'employer' %}
+        <div class="form-group">
+            <label for="company_name">Название компании</label>
+            <input type="text" id="company_name" name="company_name" 
+                   value="{{ current_user.company_name or '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="company_description">Описание компании</label>
+            <textarea id="company_description" name="company_description">{{ current_user.company_description or '' }}</textarea>
+        </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label>Дата регистрации</label>
+            <input type="text" value="{{ current_user.created_at.strftime('%d.%m.%Y') }}" disabled 
+                   style="background: #f0f0f0; cursor: not-allowed;">
+        </div>
+        
+        <button type="submit" class="button">💾 Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

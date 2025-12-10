@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Отклики на вакансию{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('vacancy.my_vacancies') }}" class="button secondary" style="margin-bottom: 1rem;">← Назад к вакансиям</a>
+
+<h2>📨 Отклики на вакансию "{{ vacancy.title }}"</h2>
+
+{% if applications %}
+    <p style="margin-bottom: 1rem; color: #6c757d;">Всего откликов: {{ applications|length }}</p>
+    
+    {% for app in applications %}
+    <div class="card">
+        <h3>{{ app.applicant.name }}</h3>
+        <p><strong>Email:</strong> {{ app.applicant.email }}</p>
+        <p><strong>Статус:</strong> <span class="badge {{ app.status }}">{{ app.status }}</span></p>
+        <p><strong>Дата отклика:</strong> {{ app.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+        
+        {% if app.cover_letter %}
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <strong>Сопроводительное письмо:</strong>
+            <p style="white-space: pre-line; margin-top: 0.5rem;">{{ app.cover_letter }}</p>
+        </div>
+        {% endif %}
+        
+        {% if app.applicant.resumes.first() %}
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('resume.view', resume_id=app.applicant.resumes.first().id) }}" class="button">
+                Просмотреть резюме
+            </a>
+        </div>
+        {% endif %}
+        
+        <form method="POST" action="{{ url_for('vacancy.update_application_status', application_id=app.id) }}" style="margin-top: 1rem;">
+            <label>Изменить статус:</label>
+            <select name="status" onchange="this.form.submit()" style="padding: 0.5rem; border-radius: 4px; margin-left: 0.5rem;">
+                <option value="pending" {% if app.status == 'pending' %}selected{% endif %}>На рассмотрении</option>
+                <option value="invited" {% if app.status == 'invited' %}selected{% endif %}>Приглашен</option>
+                <option value="accepted" {% if app.status == 'accepted' %}selected{% endif %}>Принят</option>
+                <option value="rejected" {% if app.status == 'rejected' %}selected{% endif %}>Отклонен</option>
+            </select>
+        </form>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">
+        <p style="font-size: 1.2rem;">Пока нет откликов на эту вакансию</p>
+        <p>Отклики появятся, когда соискатели начнут откликаться на вашу вакансию</p>
+    </div>
+{% endif %}
+{% endblock %}

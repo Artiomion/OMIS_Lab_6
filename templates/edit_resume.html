@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Редактировать резюме{% endblock %}
+
+{% block content %}
+<h2>✏️ Редактирование резюме</h2>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Заголовок резюме *</label>
+            <input type="text" id="title" name="title" required 
+                   value="{{ resume.title }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="education">Образование</label>
+            <textarea id="education" name="education">{{ resume.education }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="experience">Опыт работы</label>
+            <textarea id="experience" name="experience">{{ resume.experience }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="skills">Навыки</label>
+            <input type="text" id="skills" name="skills" 
+                   value="{{ resume.skills }}">
+            <small style="color: #6c757d;">Перечислите навыки через запятую</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="additional_info">Дополнительная информация</label>
+            <textarea id="additional_info" name="additional_info">{{ resume.additional_info }}</textarea>
+        </div>
+        
+        <button type="submit" class="button">💾 Сохранить изменения</button>
+        <a href="{{ url_for('resume.my_resumes') }}" class="button secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

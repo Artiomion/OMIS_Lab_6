@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Панель администратора{% endblock %}
+
+{% block content %}
+<h2>🛠️ Панель администратора</h2>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>{{ reports.total_users }}</h3>
+        <p>Всего пользователей</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ reports.total_applicants }}</h3>
+        <p>Соискателей</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ reports.total_employers }}</h3>
+        <p>Работодателей</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ reports.total_resumes }}</h3>
+        <p>Резюме</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ reports.total_vacancies }}</h3>
+        <p>Вакансий</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ reports.total_applications }}</h3>
+        <p>Откликов</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ reports.blocked_users }}</h3>
+        <p>Заблокировано</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>👥 Последние пользователи</h3>
+    {% if recent_users %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Email</th>
+                    <th>Роль</th>
+                    <th>Дата регистрации</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in recent_users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><span class="badge">{{ user.role }}</span></td>
+                    <td>{{ user.created_at.strftime('%d.%m.%Y') }}</td>
+                    <td>
+                        {% if user.is_blocked %}
+                            <span class="badge rejected">Заблокирован</span>
+                        {% else %}
+                            <span class="badge accepted">Активен</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('admin.users') }}" class="button" style="margin-top: 1rem;">Все пользователи</a>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>📊 Дополнительные функции</h3>
+    <a href="{{ url_for('admin.reports') }}" class="button">Детальные отчёты</a>
+    <a href="{{ url_for('admin.users') }}" class="button secondary">Управление пользователями</a>
+</div>
+{% endblock %}

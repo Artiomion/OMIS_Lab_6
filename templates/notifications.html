@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Уведомления{% endblock %}
+
+{% block content %}
+<h2>🔔 Уведомления</h2>
+
+{% if notifications.items %}
+    {% for notification in notifications.items %}
+    <div class="card {% if not notification.is_read %}" style="border-left: 4px solid #00b4d8;{% endif %}">
+        <h3>{{ notification.title }}</h3>
+        <p>{{ notification.message }}</p>
+        <p style="color: #6c757d; font-size: 0.9rem;">{{ notification.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+        
+        {% if not notification.is_read %}
+        <form method="POST" action="{{ url_for('main.mark_notification_read', notif_id=notification.id) }}" style="margin-top: 0.5rem;">
+            <button type="submit" class="button" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+                Отметить как прочитанное
+            </button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    <!-- Pagination -->
+    <div style="margin-top: 2rem; text-align: center;">
+        {% if notifications.has_prev %}
+            <a href="{{ url_for('main.notifications', page=notifications.prev_num) }}" class="button secondary">← Предыдущая</a>
+        {% endif %}
+        <span style="margin: 0 1rem;">Страница {{ notifications.page }} из {{ notifications.pages }}</span>
+        {% if notifications.has_next %}
+            <a href="{{ url_for('main.notifications', page=notifications.next_num) }}" class="button secondary">Следующая →</a>
+        {% endif %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p style="font-size: 1.2rem;">У вас нет уведомлений</p>
+    </div>
+{% endif %}
+{% endblock %}
