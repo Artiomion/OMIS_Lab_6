@@ -3,6 +3,8 @@
 Соответствует КонтроллерАутентификации из диаграммы классов контроллеров:
 - войти(email : String, пароль : String) : Пользователь
 - выйти(пользователь : Пользователь) : void
+
+- Регистрация нового пользователя(ДОБАВИЛ)
 """
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user
