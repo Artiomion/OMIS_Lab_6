@@ -3,13 +3,13 @@
 ## Соответствие UML-диаграммам
 
 ### Диаграмма классов модели
-- `User` - базовый класс пользователя (`models/user.py`)
+- `User` - базовый класс пользователя [models/user.py](`models/user.py`)
 - `Applicant` - соискатель (наследует User)
 - `Employer` - работодатель (наследует User)
 - `Administrator` - администратор (наследует User)
-- `Resume` - резюме (`models/resume.py`)
-- `Vacancy` - вакансия (`models/vacancy.py`)
-- `Application` - отклик (`models/application.py`)
+- `Resume` - резюме [models/resume.p](`models/resume.py`)
+- `Vacancy` - вакансия [models/vacancy.py](`models/vacancy.py`)
+- `Application` - отклик [models/application.py](`models/application.py`)
 
 ### Диаграмма классов контроллеров
 - `КонтроллерАутентификации` → `auth_controller.py`
