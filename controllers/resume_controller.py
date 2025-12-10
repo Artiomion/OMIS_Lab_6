@@ -4,6 +4,12 @@
 - создатьРезюме(соискатель : Соискатель) : Резюме
 - редактировать(резюме : Резюме) : void
 - экспортировать(резюме : Резюме, формат : String) : File
+
+- Показать список резюме текущего пользователя (Соответствует состоянию UI_МоиРезюме из диаграммы состояний)
+- Поиск резюме (Реализует функциональность из sequence диаграммы: searchResumes(criteria))
+
+- Удалить резюме(ДОБАВИЛ)
+- Просмотр резюме (для работодателей)(ДОБАВИЛ)
 """
 from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response
 from flask_login import login_required, current_user
