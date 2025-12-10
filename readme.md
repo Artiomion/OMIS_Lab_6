@@ -168,7 +168,7 @@ python app.py
 ### Мой интерфейс
 
 <img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 07 19 21" src="https://github.com/user-attachments/assets/aea62b3b-ddd6-490d-938c-2da8ac39653f" />
-<img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 07 19 41" src="https://github.com/user-attachments/assets/c5fed24a-3913-4ae1-b127-d0801af26906" />
+<img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 07 21 14" src="https://github.com/user-attachments/assets/214c2bfb-08bc-46fb-a4d3-4eb945633775" />
 
 <img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 06 52 03" src="https://github.com/user-attachments/assets/74ff32fc-8ae3-4630-8f9d-99eae5619902" />
 <img width="1440" height="486" alt="Снимок экрана 2025-12-10 в 06 55 35" src="https://github.com/user-attachments/assets/76a26915-192f-4dc0-bd88-21306aea6995" />
