@@ -92,6 +92,9 @@ python app.py
 - Email: employer@example.com
 - Пароль: 12345
 
+- Email: employer2@example.com
+- Пароль: 12345
+
 **Администратор:**
 - Email: admin@example.com
 - Пароль: admin123
