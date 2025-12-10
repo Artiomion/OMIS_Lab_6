@@ -78,7 +78,7 @@ python app.py
 
 Приложение будет доступно по адресу: http://127.0.0.1:5000
 
-### Тестовые аккаунты
+## Тестовые аккаунты
 
 При первом запуске автоматически создаются тестовые аккаунты:
 
@@ -93,54 +93,6 @@ python app.py
 **Администратор:**
 - Email: admin@example.com
 - Пароль: admin123
-
-## Структура проекта
-
-```
-job_platform/
-├── app.py                          # Точка входа приложения
-├── config.py                       # Конфигурация
-├── database.py                     # Инициализация БД
-├── models/                         # Модели данных
-│   ├── __init__.py
-│   ├── user.py                    # User, Applicant, Employer, Administrator
-│   ├── resume.py                  # Resume
-│   ├── vacancy.py                 # Vacancy
-│   ├── application.py             # Application
-│   └── notification.py            # Notification
-├── controllers/                    # Контроллеры
-│   ├── __init__.py
-│   ├── auth_controller.py         # Контроллер Аутентификации
-│   ├── resume_controller.py       # Контроллер Резюме
-│   ├── vacancy_controller.py      # Контроллер Вакансий
-│   └── admin_controller.py        # Контроллер Администрирования
-├── services/                       # Сервисы
-│   └── notification_service.py    # Контроллер Коммуникаций(Сервис уведомлений)
-└── templates/                      # HTML шаблоны
-    ├── base.html                  # Базовый шаблон
-    ├── login.html                 # Вход
-    ├── register.html              # Регистрация
-    ├── applicant_home.html        # Главная соискателя
-    ├── employer_dashboard.html    # Панель работодателя
-    ├── my_resumes.html           # Список резюме
-    ├── create_resume.html        # Создание резюме
-    ├── edit_resume.html          # Редактирование резюме
-    ├── view_resume.html          # Просмотр резюме
-    ├── search_resumes.html       # Поиск резюме
-    ├── vacancies.html            # Список вакансий
-    ├── vacancy_detail.html       # Детали вакансии
-    ├── my_vacancies.html         # Мои вакансии
-    ├── create_vacancy.html       # Создание вакансии
-    ├── edit_vacancy.html         # Редактирование вакансии
-    ├── applications.html         # Отклики на вакансию
-    ├── profile.html              # Профиль пользователя
-    ├── notifications.html        # Уведомления
-    ├── admin_dashboard.html      # Панель администратора
-    ├── admin_users.html          # Управление пользователями
-    ├── admin_reports.html        # Отчёты
-    ├── 404.html                  # Страница ошибки 404
-    └── 500.html                  # Страница ошибки 500
-```
 
 ## Функциональность
 
@@ -201,8 +153,68 @@ job_platform/
 - Валидация пользовательского ввода
 
 ## Интерфейс
-Референс
-<img width="808" height="202" alt="Снимок экрана 2025-12-10 в 06 50 38" src="https://github.com/user-attachments/assets/f1841bfd-813a-4444-b111-0c80453abf67" />
-Мой интерфейс
-<img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 06 52 03" src="https://github.com/user-attachments/assets/74ff32fc-8ae3-4630-8f9d-99eae5619902" />
 
+### Референс
+
+<img width="808" height="202" alt="Снимок экрана 2025-12-10 в 06 50 38" src="https://github.com/user-attachments/assets/f1841bfd-813a-4444-b111-0c80453abf67" />
+<img width="804" height="152" alt="Снимок экрана 2025-12-10 в 06 56 00" src="https://github.com/user-attachments/assets/5dfe3664-f0a5-4491-a954-e4a7a94d4961" />
+<img width="803" height="175" alt="Снимок экрана 2025-12-10 в 06 57 03" src="https://github.com/user-attachments/assets/a279cf83-4159-4f0a-98a2-43a37b18c1ba" />
+<img width="803" height="238" alt="Снимок экрана 2025-12-10 в 06 57 23" src="https://github.com/user-attachments/assets/16cb9bbe-4086-4861-886e-95dd89333288" />
+<img width="803" height="178" alt="Снимок экрана 2025-12-10 в 06 57 37" src="https://github.com/user-attachments/assets/e0d9f8e3-8d3b-4617-bbb1-3f732ed5a1db" />
+
+
+### Мой интерфейс
+
+<img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 06 52 03" src="https://github.com/user-attachments/assets/74ff32fc-8ae3-4630-8f9d-99eae5619902" />
+<img width="1440" height="486" alt="Снимок экрана 2025-12-10 в 06 55 35" src="https://github.com/user-attachments/assets/76a26915-192f-4dc0-bd88-21306aea6995" />
+<img width="1440" height="811" alt="Снимок экрана 2025-12-10 в 06 56 32" src="https://github.com/user-attachments/assets/4c370b44-5a68-4a98-8b55-1d50763dd070" />
+<img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 06 58 00" src="https://github.com/user-attachments/assets/623c017a-1453-47a1-a6ce-b5853ead88b2" />
+<img width="1440" height="810" alt="Снимок экрана 2025-12-10 в 06 58 09" src="https://github.com/user-attachments/assets/28e06ab6-6aae-4d86-b12f-fd7a20b94ca1" />
+
+## Структура проекта
+
+```
+job_platform/
+├── app.py                          # Точка входа приложения
+├── config.py                       # Конфигурация
+├── database.py                     # Инициализация БД
+├── models/                         # Модели данных
+│   ├── __init__.py
+│   ├── user.py                    # User, Applicant, Employer, Administrator
+│   ├── resume.py                  # Resume
+│   ├── vacancy.py                 # Vacancy
+│   ├── application.py             # Application
+│   └── notification.py            # Notification
+├── controllers/                    # Контроллеры
+│   ├── __init__.py
+│   ├── auth_controller.py         # Контроллер Аутентификации
+│   ├── resume_controller.py       # Контроллер Резюме
+│   ├── vacancy_controller.py      # Контроллер Вакансий
+│   └── admin_controller.py        # Контроллер Администрирования
+├── services/                       # Сервисы
+│   └── notification_service.py    # Контроллер Коммуникаций(Сервис уведомлений)
+└── templates/                      # HTML шаблоны
+    ├── base.html                  # Базовый шаблон
+    ├── login.html                 # Вход
+    ├── register.html              # Регистрация
+    ├── applicant_home.html        # Главная соискателя
+    ├── employer_dashboard.html    # Панель работодателя
+    ├── my_resumes.html           # Список резюме
+    ├── create_resume.html        # Создание резюме
+    ├── edit_resume.html          # Редактирование резюме
+    ├── view_resume.html          # Просмотр резюме
+    ├── search_resumes.html       # Поиск резюме
+    ├── vacancies.html            # Список вакансий
+    ├── vacancy_detail.html       # Детали вакансии
+    ├── my_vacancies.html         # Мои вакансии
+    ├── create_vacancy.html       # Создание вакансии
+    ├── edit_vacancy.html         # Редактирование вакансии
+    ├── applications.html         # Отклики на вакансию
+    ├── profile.html              # Профиль пользователя
+    ├── notifications.html        # Уведомления
+    ├── admin_dashboard.html      # Панель администратора
+    ├── admin_users.html          # Управление пользователями
+    ├── admin_reports.html        # Отчёты
+    ├── 404.html                  # Страница ошибки 404
+    └── 500.html                  # Страница ошибки 500
+```
