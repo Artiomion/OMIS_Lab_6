@@ -21,6 +21,8 @@ class User(UserMixin, db.Model):
     - email : String
     - пароль : String
     - роль : String
+    Методы:
+    - войти()
     """
     __tablename__ = 'users'
 
@@ -44,7 +46,7 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         """
-        Метод войти() из диаграммы
+        Метод войти() из диаграммы классов
         """
         return check_password_hash(self.password, password)
 
@@ -57,6 +59,9 @@ class Applicant(User):
     Соискатель (наследник User)
     Атрибуты из диаграммы:
     - списокРезюме : List<Резюме>
+    Методы:
+    - создатьРезюме()
+    - откликнуться(вакансия)
     """
     __mapper_args__ = {
         'polymorphic_identity': 'applicant'
@@ -72,7 +77,7 @@ class Applicant(User):
 
     def create_resume(self, title, experience, skills, education):
         """
-        Метод создатьРезюме() из диаграммы
+        Метод создатьРезюме() из диаграммы классов
         """
         from models.resume import Resume
         resume = Resume(
@@ -88,7 +93,7 @@ class Applicant(User):
 
     def apply_to_vacancy(self, vacancy):
         """
-        Метод откликнуться(вакансия) из диаграммы
+        Метод откликнуться(вакансия) из диаграммы классов
         """
         from models.application import Application
 
@@ -115,6 +120,9 @@ class Employer(User):
     Работодатель (наследник User)
     Атрибуты из диаграммы:
     - списокВакансий : List<Вакансия>
+    Методы:
+    - создатьВакансию()
+    - просмотретьОтклики()
     """
     company_name = db.Column(db.String(200))
     company_description = db.Column(db.Text)
@@ -129,7 +137,7 @@ class Employer(User):
 
     def create_vacancy(self, title, description, requirements, salary=None):
         """
-        Метод создатьВакансию() из диаграммы
+        Метод создатьВакансию() из диаграммы классов
         """
         from models.vacancy import Vacancy
         vacancy = Vacancy(
@@ -146,7 +154,7 @@ class Employer(User):
 
     def view_applications(self):
         """
-        Метод просмотретьОтклики() из диаграммы
+        Метод просмотретьОтклики() из диаграммы классов
         """
         from models.application import Application
         return Application.query.join(Application.vacancy).filter(
@@ -157,6 +165,9 @@ class Employer(User):
 class Administrator(User):
     """
     Администратор (наследник User)
+    Методы:
+    - модерироватьПользователя(пользователь)
+    - просмотретьОтчёты()
     """
     __mapper_args__ = {
         'polymorphic_identity': 'administrator'
@@ -164,14 +175,14 @@ class Administrator(User):
 
     def moderate_user(self, user, block=True):
         """
-        Метод модерироватьПользователя(пользователь) из диаграммы
+        Метод модерироватьПользователя(пользователь) из диаграммы классов
         """
         user.is_blocked = block
         db.session.commit()
 
     def view_reports(self):
         """
-        Метод просмотретьОтчёты() из диаграммы
+        Метод просмотретьОтчёты() из диаграммы классов
         """
         from models.application import Application
         from models.vacancy import Vacancy
