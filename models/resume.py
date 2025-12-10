@@ -9,6 +9,7 @@
   - образование : String
 Методы:
 - экспортировать(формат : String)
+- Получить список навыков()(ДОБАВИЛ)
 """
 from database import db
 from datetime import datetime
