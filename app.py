@@ -230,6 +230,7 @@ if __name__ == '__main__':
     print("Тестовые аккаунты:")
     print("Соискатель: applicant@example.com / 12345")
     print("Работодатель: employer@example.com / 12345")
+    print("Работодатель: employer2@example.com / 12345")
     print("Администратор: admin@example.com / admin123")
     print("=" * 60)
 
