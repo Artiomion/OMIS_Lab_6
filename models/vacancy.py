@@ -1,12 +1,16 @@
 """
 Модель вакансии
 Соответствует диаграмме классов модели:
-- Вакансия
+Вакансия
   - id : int
   - название : String
   - описание : String
   - требования : List<String>
   - работодатель : Работодатель
+Методы:
+- опубликовать()
+- закрыть()
+- Получить список требований()(ДОБАВИЛ)
 """
 from database import db
 from datetime import datetime
@@ -37,14 +41,14 @@ class Vacancy(db.Model):
 
     def publish(self):
         """
-        Метод опубликовать() из диаграммы
+        Метод опубликовать() из диаграммы классов
         """
         self.status = 'published'
         db.session.commit()
 
     def close(self):
         """
-        Метод закрыть() из диаграммы
+        Метод закрыть() из диаграммы классов
         """
         self.status = 'closed'
         db.session.commit()
