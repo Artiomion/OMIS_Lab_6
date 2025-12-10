@@ -22,30 +22,30 @@
 - `БазаДанных` → `database.py`
 - `РепозиторийПользователей` - реализован через SQLAlchemy ORM
 - `РепозиторийРезюме` - реализован через SQLAlchemy ORM
-- `РепозиторийВакансий` - реализован через SQLAlchemy ORM     #L12
+- `РепозиторийВакансий` - реализован через SQLAlchemy ORM
 - `СервисУведомлений` → [services/notification_service.py](services/notification_service.py)
 
 ### Диаграмма классов точки входа
-- `Приложение` → [app.py](app.py) ([main()](app.py#L222), create_app())
+- `Приложение` → [app.py](app.py) ([main()](app.py#L222), [create_app()](app.py#L226))
 - `КонтейнерЗависимостей` - реализован через blueprints Flask
 
 ### Sequence диаграмма
 Реализована функциональность:
 - Поиск резюме работодателем (`resume_controller.py::search()`)
-- Просмотр резюме (`resume_controller.py::view()`)
+- Просмотр резюме [resume_controller.py::view()](`controllers/resume_controller.py::view()`)
 - Отправка приглашений/откликов
-- Уведомления (`notification_service.py`)
+- Уведомления [notification_service.py](services/notification_service.py)
 - Обновление статусов откликов
 
 ### Диаграмма состояний UI
 Реализованы все состояния:
-- UI_Вход → `login.html`
-- UI_ГлавноеМеню → `applicant_home.html`, `employer_dashboard.html`
-- UI_Вакансии → `vacancies.html`
-- UI_СоздатьРезюме → `create_resume.html`
-- UI_РедактированиеРезюме → `edit_resume.html`
-- UI_МоиРезюме → `my_resumes.html`
-- UI_Профиль → `profile.html`
+- UI_Вход → [login.html](templates/login.html)
+- UI_ГлавноеМеню → [applicant_home.html](templates/applicant_home.html), [employer_dashboard.html](templates/employer_dashboard.html)
+- UI_Вакансии → [vacancies.html](templates/vacancies.html)
+- UI_СоздатьРезюме → [create_resume.html](templates/create_resume.html)
+- UI_РедактированиеРезюме → [edit_resume.html](templates/edit_resume.html)
+- UI_МоиРезюме → [my_resumes.html](templates/my_resumes.html)
+- UI_Профиль → [profile.html](templates/profile.html)
 
 ## Архитектурные решения
 
@@ -58,9 +58,9 @@
 - Эффективное хранение данных
 
 ### 2. MVC архитектура
-- **Models** (`models/`) - бизнес-логика и работа с данными
-- **Views** (`templates/`) - представление (Jinja2 шаблоны)
-- **Controllers** (`controllers/`) - обработка запросов (Flask blueprints)
+- **Models** [models/](models/) - бизнес-логика и работа с данными
+- **Views** [templates/](templates/) - представление (Jinja2 шаблоны)
+- **Controllers** [controllers/](controllers/) - обработка запросов (Flask blueprints)
 
 ### 3. Repository паттерн
 SQLAlchemy ORM выступает в роли репозиториев, предоставляя единый интерфейс для работы с данными.
