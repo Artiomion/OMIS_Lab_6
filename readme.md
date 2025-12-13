@@ -52,23 +52,15 @@
 
 ## Архитектурные решения
 
-### 1. Single Table Inheritance для пользователей
-Используется паттерн Single Table Inheritance в SQLAlchemy для реализации иерархии User → Applicant/Employer/Administrator.
-
-Это обеспечивает:
-- Простоту запросов к БД
-- Поддержку полиморфизма
-- Эффективное хранение данных
-
-### 2. MVC архитектура
+### 1. MVC архитектура
 - **Models** [models/](models/) - бизнес-логика и работа с данными
 - **Views** [templates/](templates/) - представление (Jinja2 шаблоны)
 - **Controllers** [controllers/](controllers/) - обработка запросов (Flask blueprints)
 
-### 3. Repository паттерн
+### 2. Repository паттерн
 SQLAlchemy ORM выступает в роли репозиториев, предоставляя единый интерфейс для работы с данными.
 
-### 4. Service слой
+### 3. Service слой
 [NotificationService](services/notification_service.py#L10) инкапсулирует логику отправки уведомлений, обеспечивая разделение ответственности.
 
 ### Запуск приложения
@@ -145,12 +137,6 @@ python app.py
 3. Реализована пагинация для списков
 4. Добавлена система сообщений для обратной связи с пользователем
 
-## Стиль кодирования
-
-- Используется PEP 8 для Python кода
-- Комментарии соответствия UML диаграммам
-- Разделение ответственности между слоями
-
 ## Безопасность
 
 - Хеширование паролей с использованием Werkzeug
@@ -183,46 +169,46 @@ python app.py
 
 ```
 job_platform/
-├── app.py                          # Точка входа приложения
-├── config.py                       # Конфигурация
-├── database.py                     # Инициализация БД
-├── models/                         # Модели данных
+├── app.py                          # точк входа систему
+├── config.py                       # конфигурация
+├── database.py                     # инициализация БД
+├── models/                         # модели данных
 │   ├── __init__.py
 │   ├── user.py                    # User, Applicant, Employer, Administrator
 │   ├── resume.py                  # Resume
 │   ├── vacancy.py                 # Vacancy
 │   ├── application.py             # Application
 │   └── notification.py            # Notification
-├── controllers/                    # Контроллеры
+├── controllers/                    # контроллеры
 │   ├── __init__.py
-│   ├── auth_controller.py         # Контроллер Аутентификации
-│   ├── resume_controller.py       # Контроллер Резюме
-│   ├── vacancy_controller.py      # Контроллер Вакансий
-│   └── admin_controller.py        # Контроллер Администрирования
-├── services/                       # Сервисы
-│   └── notification_service.py    # Контроллер Коммуникаций(Сервис уведомлений)
+│   ├── auth_controller.py         # контроллер аутентификации
+│   ├── resume_controller.py       # контроллер езюме
+│   ├── vacancy_controller.py      # контроллер вакансий
+│   └── admin_controller.py        # контроллер администрирования
+├── services/                       # сервисы
+│   └── notification_service.py    # контроллер коммуникаций(сервис уведомлений)
 └── templates/                      # HTML шаблоны
-    ├── base.html                  # Базовый шаблон
-    ├── login.html                 # Вход
-    ├── register.html              # Регистрация
-    ├── applicant_home.html        # Главная соискателя
-    ├── employer_dashboard.html    # Панель работодателя
-    ├── my_resumes.html           # Список резюме
-    ├── create_resume.html        # Создание резюме
-    ├── edit_resume.html          # Редактирование резюме
-    ├── view_resume.html          # Просмотр резюме
-    ├── search_resumes.html       # Поиск резюме
-    ├── vacancies.html            # Список вакансий
-    ├── vacancy_detail.html       # Детали вакансии
-    ├── my_vacancies.html         # Мои вакансии
-    ├── create_vacancy.html       # Создание вакансии
-    ├── edit_vacancy.html         # Редактирование вакансии
-    ├── applications.html         # Отклики на вакансию
-    ├── profile.html              # Профиль пользователя
-    ├── notifications.html        # Уведомления
-    ├── admin_dashboard.html      # Панель администратора
-    ├── admin_users.html          # Управление пользователями
-    ├── admin_reports.html        # Отчёты
-    ├── 404.html                  # Страница ошибки 404
-    └── 500.html                  # Страница ошибки 500
+    ├── base.html                  # базовый шаблон
+    ├── login.html                 # вход
+    ├── register.html              # регистрация
+    ├── applicant_home.html        # главная соискателя
+    ├── employer_dashboard.html    # панель работодателя
+    ├── my_resumes.html           # список резюме
+    ├── create_resume.html        # создание резюме
+    ├── edit_resume.html          # редактирование резюме
+    ├── view_resume.html          # просмотр резюме
+    ├── search_resumes.html       # поиск резюме
+    ├── vacancies.html            # список вакансий
+    ├── vacancy_detail.html       # детали вакансии
+    ├── my_vacancies.html         # мои вакансии
+    ├── create_vacancy.html       # создание вакансии
+    ├── edit_vacancy.html         # редактирование вакансии
+    ├── applications.html         # отклики на вакансию
+    ├── profile.html              # профиль пользователя
+    ├── notifications.html        # уведомления
+    ├── admin_dashboard.html      # панель администратора
+    ├── admin_users.html          # управление пользователями
+    ├── admin_reports.html        # отчёты
+    ├── 404.html                  
+    └── 500.html                  
 ```
